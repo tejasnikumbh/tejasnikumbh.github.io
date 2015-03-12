@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    	 <!-- Importing jQuery and jQuery UI -->
+    	<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>			        
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+		<title>
+        	The Dock Effect.
+    	</title>
+        <script type='text/javascript'>
+			$(document).ready(function(){
+				//Adjustemnt according to the screen
+					var screen_height = $(window).height();
+					var screen_width = $(window).width();
+					var  wrapper_height = $('#wrapper').height();
+					var margin_top = (screen_height - wrapper_height)/2;
+					$('#wrapper').css({
+						'margin-top':margin_top
+						});
+						
+				//Introducing new elements and adjusting their CSS.
+					
+					var no_of_images = 9;
+					
+					for(var i=0;i<no_of_images;i++){
+						$('#menu_wrap').append("<div class='menu_item'></div>");}	
+					
+					var original_size = 80;
+					var original_size_height = original_size*(1.15625);
+					var modified_size = 120;
+					var modified_size_height = modified_size*(1.15625);
+					$('.menu_item').css({
+						height:original_size_height,
+						width:original_size,
+						'margin-top':(modified_size-original_size),
+					});	
+					$.each($('.menu_item'),function(index,value){
+							$(this).css({
+								'background-image':'url('+"'images/icon"+index+".png'"+')'	
+							});
+						});
+				
+				
+				//The algorithm begins
+				
+				/* Some variables */
+					var trigger_distance = 225;
+					var slope = (modified_size-original_size)/trigger_distance;
+					var menu_object = $('.menu_item');
+					var centers = [];
+					centers = $.map(menu_object,function(value,index){
+						
+						var xCoordinate =  $(value).offset().left + $(value).width()/2;
+						var yCoordinate = $(value).offset().top + $(value).height()/2;
+						var center = {
+							x:xCoordinate,
+							y:yCoordinate
+							};
+						return center;
+						//$('span').append($(value).offset().left+" "+index+"<br/>");
+						});
+					
+					$(document).mousemove(function(e){
+							var mouseX = e.pageX;
+							var mouseY = e.pageY;
+							
+							$('span').html(mouseX+" "+mouseY);
+							$.each(menu_object,function(index,value){
+								var elem_height = $(this).height();
+								var difference = modified_size - elem_height;
+								var x_center = $(this).offset().left + $(this).width()/2;
+								var x_sqr = Math.pow((mouseX-x_center),2);								
+								var y_sqr = Math.pow((mouseY-centers[index].y-difference/2),2);
+								var distance = Math.sqrt(x_sqr+y_sqr);
+								if(distance<trigger_distance){
+									$(this).css({
+										width:(modified_size - slope*distance),
+										height:(modified_size_height - slope*distance),
+										'margin-top':(modified_size_height-elem_height)
+										});
+									}
+								else{
+									$(this).css({
+										width:original_size,
+										height:original_size_height,
+										'margin-top':(modified_size_height-original_size_height)
+										});
+									}				
+							});//each function ends here
+						var new_left_pos = (900-$('#menu_wrap').width())/2;	
+						$('#menu_wrap').css({
+							left:new_left_pos
+							});	
+					});//mousemove event handler ends here
+				
+				//Animating the slate and showing the story
+					$('#slate').animate({
+						'margin-top':'0px'
+						},500,function(){
+							$('#img_space').fadeIn();
+							});
+					$.each(menu_object,function(index,value){
+						var new_index= index+1;
+						if(new_index<=9){
+							$(this).click(function(){
+								$('#img_space').fadeOut(function(){
+									$(this).css({
+										'background-image':"url('images/story_"+new_index+".png')"		
+									});
+								$('#img_space').fadeIn();
+								});
+							});
+							
+						}
+						
+						});
+				
+			});//Ready scope ends here
+		</script>
+    	<style type='text/css'>
+			body{
+				background-color:black;}
+			#wrapper{
+				border:10px solid white;
+				background-color:#033;
+				background-image:url('http://images2.layoutsparks.com/1/212374/grim-reaper-black-pattern.jpg');
+				border-radius:50px;
+				position:relative;
+				background-repeat:repeat;
+				width:900px;
+				height:500px;
+				/*Margin-top  = screen height - 550 /2. This has been set in the JS*/
+				margin:50px auto;
+				overflow:hidden;}
+				
+				#menu_wrap{
+					cursor:pointer;
+					border:0px solid grey;
+					border-radius:inherit;
+				/*Height of this will be adjusted in JS according to the trigger distance*/
+					height:120px;
+					position:absolute;
+					bottom:10px;
+					left:63px;/*Should be according to an algo based on no of images. Patch required*/
+					}
+					.menu_item{
+						border:0px solid grey;
+						display:inline-block;
+						vertical-align:bottom;
+						float:left;
+						margin:3px;
+						background-image:url('images/smiley.png');
+						background-size:100% 100%;
+						}
+				#slate{
+					margin:-300px auto;
+					overflow:hidden;
+					width:500px;
+					height:350px;
+					border:3px solid black;
+					border-top:0px;
+					border-radius:0px 0px 20px 20px;
+					background-image:url('images/parchment.jpg');
+					background-size:500px 350px;}
+					#img_space{
+						width:400px;
+						height:300px;
+						border:0px solid grey;
+						margin:20px auto;
+						background-image:url('images/intro.png');
+						display:none;}
+				img.slate{
+					margin-top:-500px;}
+		</style>
+
+	</head>
+	<body>
+    	<div id='wrapper'>
+        	<div id='slate'>
+            	<div id='img_space'>
+                
+                </div>
+            </div>
+        	<div id='menu_wrap'>
+            	
+            </div>
+        </div>
+	</body>
+</html>

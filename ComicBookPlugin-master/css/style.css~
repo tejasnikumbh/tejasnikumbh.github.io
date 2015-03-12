@@ -1,0 +1,38 @@
+body{
+			 background-color:white;}
+			div{
+				border:0px solid white;
+				padding:1px;}
+				
+				.frame{
+					background-color:black;
+					padding:10px;
+					margin:auto;
+					border-radius:0px;}
+				.box{
+					position:relative;
+					border-radius:0px;
+					height:150px;
+					width:150px;
+					margin:5px;
+					display:inline;
+					float:left;
+					padding:0px;	
+					cursor:pointer;
+					background-image:url('images/img1.png');
+					background-position:center;}
+					.caption{
+						filter:inherit;
+						position:absolute;
+						bottom:0px;
+						border:0px;
+						border-top:0px solid white;
+						height:50px;
+						background-color:black;
+						opacity:0.8;
+						
+						display:none;}
+.unselected{
+	opacity:0.4;}
+						
+
