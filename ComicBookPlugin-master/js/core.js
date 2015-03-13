@@ -53,7 +53,7 @@
 					var frame_height = Math.ceil(140*4+45);
 					$(".frame").width(frame_width);
 					$(".frame").height(frame_height);
-				}, 500);
+				}, 100);
 					
 				
 				//While the DOM loads, it compiles sequentially so .box is present as it has been inserted above. So binding is possible
