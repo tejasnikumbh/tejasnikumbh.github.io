@@ -48,10 +48,12 @@
 							row.data("row",3);}
 					}
 				//Frame CSS depending upon box CSS
-				var frame_width = Math.ceil(140*4+45);
-				var frame_height = Math.ceil(140*4+45);
-				$(".frame").width(frame_width);
-				$(".frame").height(frame_height);
+				setTimeout(function(){ 
+					var frame_width = Math.ceil(140*4+45);
+					var frame_height = Math.ceil(140*4+45);
+					$(".frame").width(frame_width);
+					$(".frame").height(frame_height);
+				}, 500);
 					
 				
 				//While the DOM loads, it compiles sequentially so .box is present as it has been inserted above. So binding is possible
