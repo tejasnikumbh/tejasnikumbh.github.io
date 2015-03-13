@@ -11,8 +11,8 @@
 			//Defining the boxes to be appended.
 				var $div = "<div class='box'></div>";
 				var $caption = "<div class='caption' style='color:white'>Hugo</div>"
-				var original_height = 140;
-				var original_width = 140;
+				var original_height = 110;
+				var original_width = 110;
 							
 			//Appending the boxes
 				for(var i=0;i<16;i++){
