@@ -53,10 +53,8 @@
 					var frame_height = Math.ceil(140*4+45);
 					$(".frame").width(frame_width);
 					$(".frame").height(frame_height);
-				}, 100);
 					
-				
-				//While the DOM loads, it compiles sequentially so .box is present as it has been inserted above. So binding is possible
+						//While the DOM loads, it compiles sequentially so .box is present as it has been inserted above. So binding is possible
 				$(".box").mouseover(function(){
 						//Removing effects of the previous selection
 						$(".box").removeClass("unselected");
@@ -182,6 +180,11 @@
 				
 				//Triggering our event on document being ready. Note that this cant be in the beginning since no chlren of .frame in DOM since not appended yet.
 				$(".box:nth-child(6)").trigger("mouseover");
+				
+				}, 100);
+					
+				
+			
 							
 					
 			});	//END OF the ready scope		
